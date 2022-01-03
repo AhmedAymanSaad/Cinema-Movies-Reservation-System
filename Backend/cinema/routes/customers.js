@@ -16,4 +16,7 @@ router.put('/authorize', [auth,admin],customerController.authorize)
 router.get('/authorize', [auth,admin],customerController.getRequestingUsers)
 router.delete('/:id', [auth,admin],customerController.deleteCustomer)
 router.get('/', [auth,admin],customerController.getCustomers)
+router.post('/events/:eventId',auth,customerController.reserveSeat)
+router.get('/reservation',auth,customerController.getReservations)
+router.delete('/reservation/:eventId/:reservationId',auth,customerController.cancelReservations)
 module.exports= router;

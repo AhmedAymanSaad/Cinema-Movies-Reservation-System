@@ -1,5 +1,6 @@
 const { Customer, validateLogin, validateBooking, validateSignup } = require('../models/customer')
 const bcrypt = require('bcrypt');
+const {Event, Seat}=require('../models/event')
 
 module.exports.register = async (req, res, next) => {
     let { error } = validateSignup(req.body);
@@ -50,7 +51,19 @@ module.exports.getCustomer= async (req, res, next) => {
 }
 
 module.exports.reserveSeat = async (req, res, next) => {
-
+    const events=await Event.findById( req.params.eventId).find({'reservedSeats.seat':req.body.seat});
+    if(events.length>0)
+    return res.status(400).send('seats already reserved, please choose other ones');
+    const seat1 =new Seat({seat: req.body.seat ,customerId:req.customer._id });
+    let event=await Event.findOne({ _id: req.params.eventId});
+    try{
+        event.reservedSeats.push(seat1)
+        await event.save();
+        return res.status(201).send("seat reserved successfully");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ error: "Internal Server error" });
+    }
 }
 
 module.exports.authorize= async (req, res, next) => {
@@ -82,10 +95,22 @@ module.exports.getCustomers= async (req, res, next) => {
 
 module.exports.deleteCustomer= async (req, res, next) => {
     try{
-        await Customer.deleteOne({_id:req.params.id});
+        const customer = await Customer.findOneAndDelete({_id:req.params.id});
+        if(!customer) return res.status(404).send({ error: "customer not found" })
         return res.status(201).send('customer successfully deleted');
     }catch (error) {
         console.log(error);
         return res.status(500).send({ error: "Internal Server error" });
     }
+}
+
+module.exports.getReservations= async (req, res, next) => {
+    const events=await Event.find({'reservedSeats.customerId':req.customer._id}).populate('movieId').select('-reservedSeats -__v -movieId.__v -movieId.events -seatsAmount');
+    return res.status(201).send(events);
+}
+
+module.exports.cancelReservations=async (req, res, next) => {
+
+    const event= await Event.updateOne({_id:req.params.eventId},{"$pull":{"reservedSeats":{_id:req.params.reservationId}}});
+    return res.status(201).send(event);
 }

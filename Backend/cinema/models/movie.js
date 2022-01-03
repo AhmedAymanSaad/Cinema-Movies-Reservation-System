@@ -8,46 +8,26 @@ const Movie = mongoose.model('Movie', new mongoose.Schema({
         required: true,
         trim: true,
         minlength: 5,
-        maxlength: 255,
-        required: true
+        maxlength: 255
     },
-    date: {
-        type: Date,
-        Default: Date.now(),
-        required: true
-    },
-    startTime: {
-        type: Date,
-        default: Date.now(),
-        required: true
-    },
-    endTime: {
-        type: Date,
-        default: Date.now(),
-        required: true
-    },
-    ScreeningRoom: Number,
+    
     imageUrl:{
-        type: string,
+        type: String,
+        minlength: 5,
+        maxlength: 1024,
         required: true
-    },
-    reservedSeats: [Number],
-    customer: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Customer'
-            }]
+    }
 }));
 
 
 function validateMovie(movie) {
-    const schema = {
+    const schema = Joi.object({
         title: Joi.string().min(5).max(255).required(),
-        //   genreId: Joi.objectId().required(),
-        ScreeningRoom: Joi.number().min(0).max(10).required()
-    };
+        imageUrl: Joi.string().min(5).max(1024).required()
+    });
 
-    return Joi.validate(movie, schema);
+    return schema.validate(movie);
 }
 
 exports.Movie = Movie; 
-exports.validate = validateMovie;
+exports.validateMovie = validateMovie;

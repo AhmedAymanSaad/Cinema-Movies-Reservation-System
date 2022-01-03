@@ -11,16 +11,10 @@ const seatSchema = new mongoose.Schema({
         trim: true,
         maxlenght: 2
     }],
-    // ScreeningRoom:{
-    //     type: Number,
-    //     required: true,
-    //     trim: true,
-    //     maxlenght: 1
-    // },
-    movieId: {
+    EventId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'Movie'
+        ref: 'Event'
     }
 });
 
@@ -116,10 +110,9 @@ function validateSignup (body) {
 
 function validateBooking (body) {
     const schema = Joi.object({
-        username: Joi.string().min(1).max(256).required(),
-        seat: Joi.number().integer().min(1).max(200).required(),
-        movieId: Joi.objectId().required(),
-        password: Joi.string().min(1).max(50).required(),
+        // username: Joi.string().min(1).max(256).required(),
+        seat: Joi.array().items(number().integer().min(1).max(30).required())
+        // password: Joi.string().min(1).max(50).required(),
     });
 
     return schema.validate(body);
