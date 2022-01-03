@@ -8,7 +8,7 @@ if (!config.get('jwtPrivateKey')) {
   }
   
 
-mongoose.connect('mongodb://localhost/cinema')
+mongoose.connect('mongodb+srv://nada:1822000@cluster0.wqg37.mongodb.net/cinema')
     .then(() => console.log('connected to MongoDB'))
     .catch(err => console.error('could not connect to MongoDB', err));
 
