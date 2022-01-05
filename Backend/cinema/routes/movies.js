@@ -15,7 +15,7 @@ router.get('/api/courses/:id', (req, res) => {
 });
 router.post('/events', [auth,manager],eventController.createEvent);
 router.put('/events/:id',[auth,manager],eventController.editEvent);
-router.get('/events/:id',eventController.getEvent);
+router.get('/:id',eventController.getEvent);
 router.get('/events/:movieId',eventController.getEvents);
 router.get('/events/seats/:eventId',eventController.getSeats);//////////
 //router.get('/:title',authentication, peopleController.GetPeopleByUserName_ID_Email);
