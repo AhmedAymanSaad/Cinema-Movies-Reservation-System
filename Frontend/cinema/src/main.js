@@ -1,20 +1,25 @@
-import { createApp } from 'vue'
+import Vue from 'vue'
 import App from './App.vue'
-//import VueRouter from 'vue-router'
-import { routes } from './routes';
-import { createRouter, createWebHistory } from 'vue-router'
-import { createStore } from 'vuex'
-import { store } from './store/store.js'
+import { routes } from "./routes"
+import VueRouter from 'vue-router';
+import { store } from './store/store';
+import Vue from 'vue'
+import Vuelidate from 'vuelidate'
 
-const storage = createStore(store)
+Vue.use(Vuelidate)
 
-const router = createRouter({
-    history: createWebHistory(),
-    routes,
+Vue.config.productionTip = false
+
+Vue.use(VueRouter);
+
+const router = new VueRouter({
+  routes ,
+  mode: 'history'
 })
 
-const app = createApp(App)
-app.use(router)
-app.use(storage)
-app.mount('#app')
 
+new Vue({
+  render: h => h(App),
+  router,
+  store,
+}).$mount('#app')
