@@ -47,6 +47,15 @@ module.exports.editEvent= async (req, res, next) => {
     // let date1=new Date(req.body.date);
     // const offset=date1.getTimezoneOffset();
     // date1=new Date(date1.getTime()-(offset*60*1000));
+    const startTime=req.body.startTime;
+    const endTime=req.body.endTime;
+    const range = [startTime.hour, startTime.hour+1 ,endTime.hour];
+    let events = await Event.find({_id: { $ne: req.params.id } ,"screeningRoom":req.body.screeningRoom, 'date':req.body.date,'startTime.hour': range,'endTime.hour': range});
+    if (events.length>0) {
+        // if((event.startTime.hour<req.body.startTime.hour && event.endTime.hour>req.body.startTime.hour )
+        //     || (event.startTime.hour<req.body.endTime.hour && event.endTime.hour>req.body.endTime.hour))
+        return res.status(400).send('Event already exists at requested timeslot');
+    }
     let seats;
     if(req.body.screeningRoom=="1")
     {
