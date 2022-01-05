@@ -86,6 +86,10 @@ module.exports.getEvents=async (req, res, next)=>{
     return res.status(201).send(events);
 }
 
+module.exports.getEvent=async (req, res, next)=>{
+    let events=await Event.find({_id:req.params.id}).populate('movieId','title imageUrl').select('-__v');
+    return res.status(201).send(events);
+}
 
 module.exports.getSeats= async (req, res, next) => {
     const seats=await Event.findById(req.params.eventId).select('reservedSeats.seat');

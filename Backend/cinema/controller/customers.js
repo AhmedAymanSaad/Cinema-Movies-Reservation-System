@@ -95,8 +95,9 @@ module.exports.getCustomers= async (req, res, next) => {
 
 module.exports.deleteCustomer= async (req, res, next) => {
     try{
+        const event =await Event.updateMany({'reservedSeats.customerId':req.params.id},{"$pull":{"reservedSeats":{_id:req.params.reservationId}}});
         const customer = await Customer.findOneAndDelete({_id:req.params.id});
-        if(!customer) return res.status(404).send({ error: "customer not found" })
+        if(!customer) return res.status(404).send({ error: "customer not found" });
         return res.status(201).send('customer successfully deleted');
     }catch (error) {
         console.log(error);
