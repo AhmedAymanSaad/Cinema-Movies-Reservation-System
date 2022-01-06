@@ -1,6 +1,6 @@
 import { store } from "./store/store.js";
 
-import Home from "./components/Home.vue";
+import Test from "./components/Test.vue";
 import ErrorPage from "./components/ErrorPage.vue";
 import HomePage from "./components/MainPage/HomePage.vue";
 import EventDetails from "./components/MainPage/EventDetails.vue";
@@ -15,7 +15,7 @@ import UserReservations from "./components/Users/UserReservations.vue";
 
 export const routes = [
   { path: "", name: "HomePage", component: HomePage },
-  { path: "/Home", component: Home },
+  { path: "/Test", component: Test },
   { path: "/EventDetails/:eventId", component: EventDetails },
   {
     path: "/CreateEvent",

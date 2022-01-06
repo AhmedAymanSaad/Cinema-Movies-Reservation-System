@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Main Page</h1>
+    <h1>Test Page</h1>
     <p>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab asperiores,
       aut autem, blanditiis consequuntur dolore excepturi laborum maiores minima
