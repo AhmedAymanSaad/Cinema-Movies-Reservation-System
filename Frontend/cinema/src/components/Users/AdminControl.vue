@@ -1,16 +1,11 @@
 <template>
-<div>
-  
-</div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: 'AdminControl',
-  
-}
+  name: "AdminControl",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

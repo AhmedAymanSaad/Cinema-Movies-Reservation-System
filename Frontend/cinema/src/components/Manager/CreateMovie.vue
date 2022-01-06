@@ -1,16 +1,11 @@
 <template>
-<div>
-  
-</div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: 'CreateMovie',
-  
-}
+  name: "CreateMovie",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
