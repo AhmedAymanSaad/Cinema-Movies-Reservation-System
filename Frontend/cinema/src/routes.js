@@ -95,6 +95,7 @@ export const routes = [
   {
     path: "/Register",
     component: Register,
+    name: "Register",
     beforeEnter(to, from, next) {
       if (store.state.userType == "Guest") {
         next();
