@@ -105,12 +105,12 @@ export default {
         email: "",
         username: "",
         password: "",
-        role: "NormalUser",
+        role: "Customer",
       },
       confirmPass: "",
       submitted: false,
       options: [
-        { text: "User Account", value: "NormalUser" },
+        { text: "User Account", value: "Customer" },
         { text: "Manager Account", value: "Manager" },
       ],
       serverError: false,
@@ -181,7 +181,4 @@ export default {
 </script>
 
 <style>
-div {
-  padding: 5px;
-}
 </style>

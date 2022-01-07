@@ -13,6 +13,7 @@ var corsOptions = {
 
 const app = express();
 app.use(express.json());
+app.options('*', cors())
 app.use(cors(corsOptions));
 
 app.use('/api',routes);

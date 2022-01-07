@@ -83,8 +83,8 @@ export default {
               this.$store.commit("setUserType", "Admin");
               console.log("Admin");
             } else {
-              console.log("User");
-              this.$store.commit("setUserType", "User");
+              console.log("Customer");
+              this.$store.commit("setUserType", "Customer");
             }
           },
           (error) => {
@@ -97,7 +97,4 @@ export default {
 </script>
 
 <style>
-div {
-  padding: 10px;
-}
 </style>

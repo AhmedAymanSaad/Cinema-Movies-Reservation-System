@@ -10,4 +10,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>div {
+  padding: 5px;
+}</style>
