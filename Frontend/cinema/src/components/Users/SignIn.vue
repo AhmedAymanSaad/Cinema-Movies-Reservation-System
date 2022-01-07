@@ -49,7 +49,8 @@ export default {
           console.log(response);
           
           this.$router.push({name: 'HomePage'})
-          this.$store.state.auth = response.headers.get('x-auth-token')
+          //this.$store.state.auth = response.headers.get('x-auth-token')
+          this.$store.commit('setAuth',response.headers.get('x-auth-token'))
           console.log(response.headers.get('x-auth-token'))
           this.getUserAccess();
         },
@@ -59,21 +60,29 @@ export default {
       );
     },
     getUserAccess(){
-      console.log('TODO: at function that gets sets userType in store')
-      /*
-      this.$http.post("customers/login", this.$s).then(
+      this.$http.get("customers/me", {
+        headers: {
+          'x-auth-token':  this.$store.state.auth
+        }
+      }).then(
         (response) => {
           console.log(response);
-          
-          this.$router.push({name: 'HomePage'})
-          this.$store.state.auth = response.headers.get('x-auth-token')
-          console.log(response.headers.get('x-auth-token'))
-          getUserAccess();
+          console.log(response.body.isManager);
+          if(response.body.isManager){
+            console.log('Manager');
+            this.$store.commit('setUserType','Manager')
+          }else if(response.body.isAdmin){
+            this.$store.commit('setUserType','Admin')
+            console.log('Admin');
+          }else{
+            console.log('User');
+            this.$store.commit('setUserType','User')
+          }
         },
         (error) => {
           console.log(error);
         }
-      );*/
+      );
     }
   },
 };

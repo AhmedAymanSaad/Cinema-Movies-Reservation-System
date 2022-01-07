@@ -7,7 +7,7 @@
       nihil non nulla obcaecati quas quibusdam quod sed suscipit vero
       voluptatem.
     </p>
-    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-primary" @click="logout">Temp Logout</button>
     <p>{{ userType }}</p>
   </div>
 </template>
@@ -21,6 +21,11 @@ export default {
       userType: store.state.userType,
     };
   },
+  methods:{
+    logout(){
+      this.$store.commit('logOutUser')
+    }
+  }
 };
 </script>
 
