@@ -112,6 +112,6 @@ module.exports.getReservations= async (req, res, next) => {
 
 module.exports.cancelReservations=async (req, res, next) => {
 
-    const event= await Event.updateOne({_id:req.params.eventId},{"$pull":{"reservedSeats":{_id:req.params.reservationId}}});
+    const event= await Event.updateOne({_id:req.params.eventId},{"$pull":{"reservedSeats":{seat:req.params.seatNumber}}});
     return res.status(201).send(event);
 }

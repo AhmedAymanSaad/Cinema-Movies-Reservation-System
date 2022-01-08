@@ -18,5 +18,5 @@ router.delete('/:id', [auth,admin],customerController.deleteCustomer)
 router.get('/', [auth,admin],customerController.getCustomers)
 router.post('/events/:eventId',auth,customerController.reserveSeat)
 router.get('/reservation',auth,customerController.getReservations)
-router.delete('/reservation/:eventId/:reservationId',auth,customerController.cancelReservations)
+router.delete('/reservation/:eventId/:seatNumber',auth,customerController.cancelReservations)
 module.exports= router;
