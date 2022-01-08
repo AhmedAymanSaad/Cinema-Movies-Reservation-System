@@ -7,8 +7,9 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem"
-      class="mb-2"
+      
+      
+      
     >
       <b-card-text>
         <div>Date {{date}}</div>
@@ -36,5 +37,6 @@ export default {
 
 <style>
 .card {
+  max-width: 20rem;
   display: inline-block;
 }</style>

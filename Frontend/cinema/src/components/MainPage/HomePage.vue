@@ -227,8 +227,7 @@ export default {
 };
 </script>
 
-<style>
-.card {
+<style>.card {
   display: inline-block;
 }
 </style>
