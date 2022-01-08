@@ -14,7 +14,7 @@ router.get('/api/courses/:id', (req, res) => {
     res.send(req.params.id);
 });
 router.post('/events', [auth,manager],eventController.createEvent);
-router.put('/events/:id',[auth,manager],eventController.editEvent);
+router.put('/events/info/:id',[auth,manager],eventController.editEvent);
 router.get('/:id',eventController.getEvent);
 router.get('/events/:movieId',eventController.getEvents);
 router.get('/events/seats/:eventId',eventController.getSeats);//////////
