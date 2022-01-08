@@ -107,7 +107,7 @@ export default {
       ).then(
         (response) => {
           console.log(response);
-          //this.$router.push({ name: "HomePage" });
+          this.$router.push({ name: "HomePage" });
         },
         (error) => {
           console.log(error);
