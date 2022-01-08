@@ -106,8 +106,8 @@ module.exports.deleteCustomer= async (req, res, next) => {
 }
 
 module.exports.getReservations= async (req, res, next) => {
-    const events=await Event.find({'reservedSeats.customerId':req.customer._id}).populate('movieId').select('-reservedSeats -__v -movieId.__v -movieId.events -seatsAmount');
-    return res.status(201).send(events);
+    const reservedseats =await Event.find({'reservedSeats.customerId':req.customer._id}, {reservedSeats: {$elemMatch: {customerId: req.customer._id}}}).populate('movieId startTime endTime date screeningRoom').select('');
+    return res.status(201).send(reservedseats);
 }
 
 module.exports.cancelReservations=async (req, res, next) => {
