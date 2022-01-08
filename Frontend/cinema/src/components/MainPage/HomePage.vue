@@ -83,7 +83,7 @@ export default {
   methods: {
     checkSeats(im, ie) {
       console.log("Checking Seats for " + im + " " + ie);
-      this.$router.push({ name: 'EventDetails', params: { eventId: this.eventsList[im][ie]._id } });
+      this.$router.push({ name: 'EventDetails', params: { eventId: this.eventsList[im][ie]._id} });
     },
     getDate(im, ie) {
       try {

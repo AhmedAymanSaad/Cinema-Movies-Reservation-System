@@ -52,6 +52,7 @@ export const routes = [
   {
     path: "/EditEvent/:eventId",
     component: EditEvent,
+    name: "EditEvent",
     beforeEnter(to, from, next) {
       if (store.state.userType == "Manager") {
         next();
