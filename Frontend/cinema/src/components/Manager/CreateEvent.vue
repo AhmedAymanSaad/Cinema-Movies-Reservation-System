@@ -93,6 +93,10 @@ export default {
       if(!this.validateAll){
         return;
       }
+      this.formData.startTime.hour = this.startTimeFull.substring(0,2)
+      this.formData.startTime.minute = this.startTimeFull.substring(3,5)
+      this.formData.endTime.hour = this.endTimeFull.substring(0,2)
+      this.formData.endTime.minute = this.endTimeFull.substring(3,5)
       console.log("Submitting")
       this.$http.post("movies/events",this.formData,
       {
@@ -103,7 +107,7 @@ export default {
       ).then(
         (response) => {
           console.log(response);
-          this.$router.push({ name: "HomePage" });
+          //this.$router.push({ name: "HomePage" });
         },
         (error) => {
           console.log(error);
