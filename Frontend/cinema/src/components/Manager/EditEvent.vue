@@ -92,7 +92,7 @@ export default {
       this.formData.endTime.hour = this.endTimeFull.substring(0,2)
       this.formData.endTime.minute = this.endTimeFull.substring(3,5)
       console.log("Submitting")
-      this.$http.put("movies/events",this.formData,
+      this.$http.put("movies/events/info/"+this.$route.params.eventId,this.formData,
       {
           headers: {
             "x-auth-token": this.$store.state.auth,
@@ -110,28 +110,6 @@ export default {
         }
       );
     },
-    updateMoviesList() {
-      this.$http.get("movies/").then(
-        (response) => {
-          console.log(response);
-          console.log(JSON.parse(response.bodyText));
-          this.moviesList = JSON.parse(response.bodyText);
-          for (let movie in this.moviesList) {
-            console.log(this.moviesList[movie].title);
-            this.options.push({
-              value: this.moviesList[movie]._id,
-              text: this.moviesList[movie].title,
-            });
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
-  },
-  created() {
-    this.updateMoviesList();
   },
   computed:{
     validateTimeStart(){

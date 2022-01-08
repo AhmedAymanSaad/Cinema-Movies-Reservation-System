@@ -16,7 +16,7 @@
             {{ details[0].startTime.hour + ":" + details[0].startTime.minute }}
           </div>
           <div>Screening Room {{ details[0].screeningRoom }}</div>
-          <div class="col-sm" v-if="checkManager">
+          <div class="col-sm" v-if="checkManager()">
             <b-button type="button" variant="primary" @click="editEvent"
               >Edit Event</b-button
             >
