@@ -131,7 +131,7 @@ export default {
           this.$router.push({ name: "HomePage" });
           this.$store.commit("setAuth", response.headers.get("x-auth-token"));
           console.log(response.headers.get("x-auth-token"));
-          this.$store.commit("setUserType", "User");
+          this.$store.commit("setUserType", "Customer");
         },
         (error) => {
           console.log(error);

@@ -16,10 +16,11 @@ import UserReservations from "./components/Users/UserReservations.vue";
 export const routes = [
   { path: "", name: "HomePage", component: HomePage },
   { path: "/Test", component: Test },
-  { path: "/EventDetails/:eventId", component: EventDetails },
+  { path: "/EventDetails/:eventId", component: EventDetails, name:"EventDetails" },
   {
     path: "/CreateEvent",
     component: CreateEvent,
+    name: "CreateEvent",
     beforeEnter(to, from, next) {
       if (store.state.userType == "Manager") {
         next();
@@ -35,6 +36,7 @@ export const routes = [
   {
     path: "/CreateMovie",
     component: CreateMovie,
+    name : "CreateMovie",
     beforeEnter(to, from, next) {
       if (store.state.userType == "Manager") {
         next();
@@ -113,7 +115,7 @@ export const routes = [
       if (store.state.userType == "Guest") {
         next();
       } else {
-        console.log("User already logged in");
+        console.log("User logged in");
         next({ name: "HomePage" });
       }
     },
@@ -121,11 +123,12 @@ export const routes = [
   {
     path: "/Reservations",
     component: UserReservations,
+    name: "Reservations",
     beforeEnter(to, from, next) {
-      if (store.state.userType != "Guest") {
+      if (store.state.userType == "Customer") {
         next();
       } else {
-        console.log("User already not logged");
+        console.log("User not Customer");
         next({ name: "LogInPage" });
       }
     },

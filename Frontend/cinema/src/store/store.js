@@ -9,6 +9,8 @@ export const store = new Vuex.Store({
   state: {
     auth: null,
     userType: "Guest",
+    moviesList: [],
+    eventsList: []
   },
   getters: {
     getUserType: (state) => {

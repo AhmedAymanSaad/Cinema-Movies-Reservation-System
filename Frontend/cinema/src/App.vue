@@ -12,4 +12,8 @@ export default {
 
 <style>div {
   padding: 5px;
-}</style>
+}
+.card {
+  display: inline-block;
+}
+</style>
