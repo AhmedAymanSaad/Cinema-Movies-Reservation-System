@@ -85,8 +85,13 @@ export default {
   methods: {
     onSubmit() {
       if(!this.validateAll){
+        console.log("falied vaildate")
+        this.serverError=true
+        this.errorMsg="Invalid Time"
         return;
       }
+      this.serverError=false
+      this.errorMsg=''
       this.formData.startTime.hour = this.startTimeFull.substring(0,2)
       this.formData.startTime.minute = this.startTimeFull.substring(3,5)
       this.formData.endTime.hour = this.endTimeFull.substring(0,2)
@@ -133,8 +138,21 @@ export default {
         return true
       }
     },
+     validateTime(){
+      let sh = parseInt( this.startTimeFull.substring(0,2))
+      let sm = parseInt( this.startTimeFull.substring(3,5))
+      let eh = parseInt( this.endTimeFull.substring(0,2))
+      let em = parseInt( this.endTimeFull.substring(3,5))
+      if(eh<sh){
+        return false
+      }
+      if(eh==sh && em<sm){
+        return false
+      }
+      return true
+    },
      validateAll(){
-      return this.validateDate && this.validateTimeStart && this.validateTimeEnd
+      return this.validateDate && this.validateTimeStart && this.validateTimeEnd && this.validateTime
     },
   }
 };

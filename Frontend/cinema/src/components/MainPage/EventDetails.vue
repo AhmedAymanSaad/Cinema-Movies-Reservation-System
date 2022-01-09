@@ -36,17 +36,50 @@
       </b-container>
     </span>
     <div class="alert alert-danger" role="alert" v-if="serverError">
-        {{ errorMsg }}
-      </div>
+      {{ errorMsg }}
+    </div>
     <div>
-      <b-button type="button" variant="primary" @click="reserveSeats"
+      <b-button type="button" variant="primary" @click="openModal"
         >Reserve</b-button
       >
     </div>
     <div>
       <b-modal id="modal-1" title="BootstrapVue" @ok="redirectGuest">
-    <p class="my-4" >You need to be signed in to reserve! Redirect?</p>
-  </b-modal>
+        <p class="my-4">You need to be signed in to reserve! Redirect?</p>
+      </b-modal>
+      <b-modal id="modal-2" title="BootstrapVue" @ok="handleok">
+        <p class="my-4">Enter credit card number and pin</p>
+        <b-form>
+          <b-form-group
+            id="input-group-1"
+            label="Credit card Number:"
+            label-for="input-1"
+          >
+            <b-form-input
+              id="input-1"
+              placeholder="Enter credit card number"
+              v-model="ccnum"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+            id="input-group-2"
+            label="Credit card pin:"
+            label-for="input-2"
+          >
+            <b-form-input
+              id="input-2"
+              placeholder="Enter credit card pin"
+              type="password"
+              v-model="ccpin"
+              required
+            ></b-form-input>
+          </b-form-group>
+        </b-form>
+        <div class="alert alert-danger" role="alert" v-if="errorm">
+        Invalid Credit Card number or Pin
+      </div>
+      </b-modal>
     </div>
   </div>
 </template>
@@ -78,26 +111,53 @@ export default {
       createdReq: false,
       serverError: false,
       errorMsg: "",
+      ccnum:'',
+      errorm:false,
+      ccpin:'',
+
     };
   },
   methods: {
-    redirectGuest(){
+    handleok(bvModalEvt){
+       bvModalEvt.preventDefault()
+        if(this.ccnum.length!=16 || this.ccpin.length!=4 || (/[a-zA-Z]/.test(this.ccnum)) || (/[a-zA-Z]/.test(this.ccpin))){
+          console.log(this.ccnum.length +" "+this.ccpin.length)
+          console.log((/[a-zA-Z]/.test(this.ccnum)) +" "+(/[a-zA-Z]/.test(this.ccpin)))
+          this.errorm=true
+          return
+        }
+        this.errom=false
+        this.$nextTick(() => {
+          this.$bvModal.hide('modal-2')
+        })
+        this.reserveSeats()
+
+    },
+    openModal(){
+      if(this.reservedSeats.length>0){
+      this.$bvModal.show("modal-2")}
+    },
+    redirectGuest() {
       this.$router.push({ name: "LogInPage" });
     },
     reserveSeats() {
+
       for (let seat in this.reservedSeats) {
         this.$http
-          .post("customers/events/"+this.details[0]._id, {"seat":this.reservedSeats[seat]}, {
-            headers: {
-              "x-auth-token": this.$store.state.auth,
-            },
-          })
+          .post(
+            "customers/events/" + this.details[0]._id,
+            { seat: this.reservedSeats[seat] },
+            {
+              headers: {
+                "x-auth-token": this.$store.state.auth,
+              },
+            }
+          )
           .then(
             (response) => {
               console.log(response);
-              this.getEventDetails()
-              this.$forceUpdate()
-            
+              this.getEventDetails();
+              this.$forceUpdate();
             },
             (error) => {
               console.log(error);
@@ -117,12 +177,15 @@ export default {
       }
     },
     gridClicked(i, j) {
-      if(this.$store.state.userType=='Manager' || this.$store.state.userType=='Admin'){
-        return
+      if (
+        this.$store.state.userType == "Manager" ||
+        this.$store.state.userType == "Admin"
+      ) {
+        return;
       }
-      if(this.$store.state.userType=='Guest'){
-        this.$bvModal.show('modal-1')
-        return
+      if (this.$store.state.userType == "Guest") {
+        this.$bvModal.show("modal-1");
+        return;
       }
       console.log("clicked grid " + i + " " + j);
       if (this.seats[i][j] == 1) {

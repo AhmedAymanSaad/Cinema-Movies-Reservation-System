@@ -1,14 +1,11 @@
 <template>
   <span>
-      <keep-alive>
     <b-card
       :title="title"
       :img-src="imageUrl"
       img-alt="Image"
       img-top
-      tag="article"
-      
-      
+      style="max-width: 20rem; display: inline-block; margin: 5px"
       
     >
       <b-card-text>
@@ -19,7 +16,6 @@
 
       <b-button @click="callcheckSeats" variant="primary">Check Seats</b-button>
     </b-card>
-      </keep-alive>
   </span>
 </template>
 
@@ -37,6 +33,5 @@ export default {
 
 <style>
 .card {
-  max-width: 20rem;
   display: inline-block;
 }</style>
