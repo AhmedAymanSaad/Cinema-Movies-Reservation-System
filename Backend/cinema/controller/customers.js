@@ -106,7 +106,23 @@ module.exports.deleteCustomer= async (req, res, next) => {
 }
 
 module.exports.getReservations= async (req, res, next) => {
-    const reservedseats =await Event.find({'reservedSeats.customerId':req.customer._id}, {reservedSeats: {$elemMatch: {customerId: req.customer._id}}}).populate('movieId startTime endTime date screeningRoom').select('');
+    const reservedseats =await Event.find({'reservedSeats.customerId':req.customer._id}).populate('movieId').select({'reservedSeats.customerId': req.customer._id,'startTime':1,'endTime':1, 'date':1, 'screeningRoom':1,'reservedSeats.seat':1});
+    // const reservedseats =await Event.aggregate([
+    //     // Filter possible documents
+    //     { "$match": { "reservedSeats.customerId": req.customer._id } },
+    
+    //     // Unwind the array to denormalize
+    //     { "$unwind": "$filtermetric" },
+    
+    //     // Match specific array elements
+    //     { "$match": { "reservedSeats.customerId": req.customer._id } },
+    
+    //     // Group back to array form
+    //     { "$group": {
+    //         "_id": "$_id",
+    //         "filtermetric": { "$push": "$filtermetric" }
+    //     }}
+    // ])
     return res.status(201).send(reservedseats);
 }
 
